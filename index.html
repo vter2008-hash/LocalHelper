@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<title>Palīgs</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #eef2f5;
+  margin: 0;
+}
+
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+input, select, textarea, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #2d89ef;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1b5fbf;
+}
+
+.card {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.title {
+  font-weight: bold;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Palīgs</h1>
+
+<input type="text" id="search" placeholder="Meklēt pakalpojumu...">
+<button onclick="search()">Meklēt</button>
+
+<select id="serviceSelect">
+  <option>Matemātikas skolotājs</option>
+  <option>Angļu valodas skolotājs</option>
+  <option>Remonta meistars</option>
+  <option>Dzīvokļa uzkopšana</option>
+  <option>Santehniķis</option>
+</select>
+<button onclick="chooseService()">Izvēlēties pakalpojumu</button>
+
+<h3>Ievietot sludinājumu</h3>
+<input type="text" id="name" placeholder="Jūsu vārds">
+<textarea id="message" placeholder="Aprakstiet, kāda palīdzība nepieciešama"></textarea>
+<button onclick="addAd()">Publicēt</button>
+
+<h3>Sludinājumi</h3>
+<div id="list"></div>
+
+</div>
+
+<script>
+let ads = JSON.parse(localStorage.getItem("ads")) || [];
+
+function save(){
+  localStorage.setItem("ads", JSON.stringify(ads));
+}
+
+function render(data){
+  let list = document.getElementById("list");
+  list.innerHTML = "";
+
+  if(data.length === 0){
+    list.innerHTML = "<p>Nekas nav atrasts</p>";
+    return;
+  }
+
+  data.forEach(ad => {
+    list.innerHTML += `
+      <div class="card">
+        <div class="title">${ad.name}</div>
+        <div>${ad.message}</div>
+      </div>
+    `;
+  });
+}
+
+function search(){
+  let value = document.getElementById("search").value.toLowerCase();
+
+  let filtered = ads.filter(ad =>
+    ad.message.toLowerCase().includes(value)
+  );
+
+  render(filtered);
+}
+
+function chooseService(){
+  let selected = document.getElementById("serviceSelect").value;
+
+  let filtered = ads.filter(ad =>
+    ad.message.includes(selected)
+  );
+
+  render(filtered);
+}
+
+function addAd(){
+  let name = document.getElementById("name").value;
+  let message = document.getElementById("message").value;
+
+  if(name === "" || message === ""){
+    alert("Aizpildiet visus laukus");
+    return;
+  }
+
+  ads.push({name, message});
+  save();
+  render(ads);
+
+  document.getElementById("name").value = "";
+  document.getElementById("message").value = "";
+}
+
+render(ads);
+</script>
+
+</body>
+</html>
