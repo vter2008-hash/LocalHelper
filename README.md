@@ -6,3 +6,5 @@
 - Datu saglabāšana pārlūkprogrammā
 - Sludinājumu pievienošana
 
+Autors
+Vadims Tersukovs, Valerijs tersukovs
