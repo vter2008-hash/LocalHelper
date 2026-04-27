@@ -6,5 +6,8 @@
 - Datu saglabāšana pārlūkprogrammā
 - Sludinājumu pievienošana
 
+## Tehnoloģijas
+- HTML
+
 Autors
 Vadims Tersukovs, Valerijs Tersukovs
