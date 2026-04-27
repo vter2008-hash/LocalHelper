@@ -7,4 +7,4 @@
 - Sludinājumu pievienošana
 
 Autors
-Vadims Tersukovs, Valerijs tersukovs
+Vadims Tersukovs, Valerijs Tersukovs
